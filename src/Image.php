@@ -10,15 +10,15 @@ class Image
     private string $type;
     private string $path;
     private string $extension;
-    
-    const BIG_SIZE = 'big';
-    const MEDIUM_SIZE = 'medium';
-    const LITTLE_SIZE = 'little';
-    const PNG= ['type' => 'png','extension' => 'png'];
-    const JPEG= ['type' => 'jpeg','extension' => 'jpg'];
+
+    public const BIG_SIZE = 'big';
+    public const MEDIUM_SIZE = 'medium';
+    public const LITTLE_SIZE = 'little';
+    public const PNG = ['type' => 'png','extension' => 'png'];
+    public const JPEG = ['type' => 'jpeg','extension' => 'jpg'];
 
 
-    public function __construct(array $data =[])
+    public function __construct(array $data = [])
     {
         $this->hydrate($data);
     }
@@ -26,8 +26,8 @@ class Image
     private function hydrate(array $data)
     {
         foreach ($data as $key => $value) {
-            $method = 'set'.ucfirst($key);
-            if(method_exists($this, $method)) {
+            $method = 'set' . ucfirst($key);
+            if (method_exists($this, $method)) {
                 $this->$method($value);
             }
         }
@@ -59,45 +59,38 @@ class Image
 
     public function setName(string $name): void
     {
-        if(!(bool)preg_match('/^img[0-9]+_[a-z]+/',$name))
-        {
+        if (!(bool)preg_match('/^img[0-9]+_[a-z]+/', $name)) {
             throw new ImageException();
             return;
         }
 
-        $endName =substr($name,strpos($name,'_')+1);
+        $endName = substr($name, strpos($name, '_') + 1);
 
         $sizes = [
             self::BIG_SIZE,
             self::LITTLE_SIZE,
             self::MEDIUM_SIZE
         ];
-        if(!in_array($endName,$sizes))
-        {
+        if (!in_array($endName, $sizes)) {
             throw new ImageException();
             return;
-
         }
 
         $this->name = $name;
-
     }
 
     public function setType(string $type): void
     {
-        if(substr($type, 0, strpos($type, '/')) !== "image")
-        {
+        if (substr($type, 0, strpos($type, '/')) !== "image") {
             throw new ImageException();
             return;
         }
 
-        $endType = substr($type,strpos($type, '/')+1);
-        
-        if(!in_array($endType,[self::JPEG["type"],self::PNG["type"]]))
-        {
+        $endType = substr($type, strpos($type, '/') + 1);
+
+        if (!in_array($endType, [self::JPEG["type"],self::PNG["type"]])) {
             throw new ImageException();
             return;
-
         }
 
         $this->type = $type;
@@ -105,8 +98,7 @@ class Image
 
     public function setPath(string $path): void
     {
-        if(!(bool)preg_match('/^\/public\/picture/',$path))
-        {
+        if (!(bool)preg_match('/^\/public\/picture/', $path)) {
             throw new ImageException();
             return;
         }
@@ -117,20 +109,18 @@ class Image
     public function setExtension(string $extension): void
     {
 
-        if(!in_array($extension,[self::JPEG["extension"],self::PNG["extension"]]))
-        {
+        if (!in_array($extension, [self::JPEG["extension"],self::PNG["extension"]])) {
             throw new ImageException();
             return;
-
         }
 
         $this->extension = $extension;
     }
-    
+
 
     public function getImageURL(): string
     {
-        $url = $this->path . DIRECTORY_SEPARATOR . $this-> name. "." .$this -> extension;
+        $url = $this->path . DIRECTORY_SEPARATOR . $this-> name . "." . $this -> extension;
         return $url;
     }
 }
