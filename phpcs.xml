@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ruleset name="ImageRessource">
+    <description>My format rulers</description>
+    <arg name="colors"/>
+    <arg value="p"/>
+
+    <file>src</file>
+
+    <rule ref="PSR12"></rule>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"></rule>
+</ruleset>
