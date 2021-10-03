@@ -19,5 +19,6 @@
         }
     ],
     "require": {
+        "http-interop/response-sender": "^1.0"
     }
 }

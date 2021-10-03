@@ -13,7 +13,6 @@ class ImageTest extends TestCase
         $this-> data =[
             "name" => "img23_".Image::MEDIUM_SIZE,
             "type" => "image/png",
-            "path" => "/public/picture",
             "extension" => "png"
         ];
     }
@@ -23,7 +22,6 @@ class ImageTest extends TestCase
         $img = new Image($this->data);
         $this->assertEquals('img23_medium', $img->name());
         $this->assertEquals('image/png', $img->type());
-        $this->assertEquals('/public/picture', $img->path());
         $this->assertEquals('png', $img->extension());
     }
 
@@ -36,7 +34,6 @@ class ImageTest extends TestCase
         $img = new Image($data);
         $this->assertEquals('img23_medium', $img->name());
         $this->assertEquals('image/jpeg', $img->type());
-        $this->assertEquals('/public/picture', $img->path());
         $this->assertEquals('jpg', $img->extension());
     }
 
@@ -98,20 +95,12 @@ class ImageTest extends TestCase
         $img = new Image($data);
     }
 
-    public function testInvalidPathImage(): void
-    {
-        $data = $this->data;
-        $data['path'] = '/publlic/ima';
-        $this -> expectException(ImageException::class);
-        $img = new Image($data);
-    }
 
-
-    public function testImageURLBuilder(): void
-    {
-        $data = $this->data;
-        $img = new Image($data);
-        $url = $img->getImageURL();
-        $this -> assertEquals("/public/picture/img23_medium.png", $url);
-    }
+    // public function testImageURLBuilder(): void
+    // {
+    //     $data = $this->data;
+    //     $img = new Image($data);
+    //     $url = $img->getImageURL();
+    //     $this -> assertEquals("/public/picture/img23_medium.png", $url);
+    // }
 }

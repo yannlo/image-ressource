@@ -8,7 +8,6 @@ class Image
 {
     private string $name;
     private string $type;
-    private string $path;
     private string $extension;
 
     public const BIG_SIZE = 'big';
@@ -43,11 +42,6 @@ class Image
     public function type(): string
     {
         return $this->type;
-    }
-
-    public function path(): string
-    {
-        return $this->path;
     }
 
     public function extension(): string
@@ -96,16 +90,6 @@ class Image
         $this->type = $type;
     }
 
-    public function setPath(string $path): void
-    {
-        if (!(bool)preg_match('/^\/public\/picture/', $path)) {
-            throw new ImageException();
-            return;
-        }
-
-        $this->path = $path;
-    }
-
     public function setExtension(string $extension): void
     {
 
@@ -118,9 +102,9 @@ class Image
     }
 
 
-    public function getImageURL(): string
-    {
-        $url = $this->path . DIRECTORY_SEPARATOR . $this-> name . "." . $this -> extension;
-        return $url;
-    }
+    // public function getImageURL(): string
+    // {
+    //     $url = $this->path . DIRECTORY_SEPARATOR . $this-> name . "." . $this -> extension;
+    //     return $url;
+    // }
 }
